@@ -39,6 +39,9 @@ function initializeApplication() {
     var elFooter = document.createElement('footer');
     elFooter.innerHTML = '<h4>get excited about learning JavaScript...</h4>';
     elWrapper.appendChild(elFooter);
+
+/*400-0 Animations Begin VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV*/
+
 /*400-0 make a class name on the header title so it animates bounceInDown*/
     elHeaderTitle.className = 'animated bounceInDown';
 /*400-0 creates the element headertagline with a class and animates it to bounceInLeft*/
