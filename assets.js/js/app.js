@@ -2,9 +2,7 @@
 'use strict';
 
 
-/*401-0 We've created a variable (appData) where we can pull in other objects*/
 var appData = {
-  /*401-0 added both the title and tagLine objects to be able to pull from multiple sources in the JS file*/
   title: 'My name is Jimmy De Jesus',
   tagLine: '"There is only one happiness in this life, to love and be loved." George Sand.'
 };
@@ -27,43 +25,31 @@ function initializeApplication() {
   elWrapper.appendChild(elHeader);
 
   var elHeaderTitle = document.createElement('h1');
-  /*401-0 replaced applicationTitle with appData.title for better javascript functionality*/
   elHeaderTitle.innerHTML = appData.title;
   elHeader.appendChild(elHeaderTitle);
-  /*400-0 make a class name on the header title so it animates bounceInDown*/
-  /*401-0 moved closer to elHeaderTitle location of js page for better readabilaty*/
   elHeaderTitle.className = 'animated bounceInDown';
 
   var elHeaderTagLine = document.createElement('h2');
-  /*401-0 replaced applicationTagLine with appData.tagLine for better javascript functionality*/
   elHeaderTagLine.textContent = appData.tagLine;
-  /*400-0 This line adds a style to the header so that it is at .4em */
   elHeaderTagLine.style.fontSize = '.4em';
   elHeader.appendChild(elHeaderTagLine);
-  /*400-0 creates the element headertagline with a class and animates it to bounceInLeft*/
-  /*401-0 moved closer to elHeaderTagLine location of js page for better readabilaty*/
   elHeaderTagLine.className = 'animated bounceInLeft';
 
-  /*400-0 this var elMain populates the main section of the HTML with HTML*/
   var elMain = document.createElement('main');
   elMain.innerHTML = '<p>Communication is Beautiful...</p>';
   elWrapper.appendChild(elMain);
-  /*400-0 creates the element Main and makes a class so we can animate it to zoomin*/
-  /*401-0 moved closer to elMain location of js page for better readabilaty*/
   elMain.className = 'animated zoomIn';
 
-  /*400-0 This var elFooter auto populates the footer area with HTML*/
+
   var elFooter = document.createElement('footer');
   elFooter.innerHTML = '<h4>get excited about learning JavaScript...</h4>';
   elWrapper.appendChild(elFooter);
-  /*400-0 creates a element footer with a class so we can animate it to bounceInRight*/
-  /*401-0 moved closer to elFooter location of js page for better readabilaty*/
   elFooter.className = 'animated bounceInRight';
-  /*401-1 we are populaiting the main tag in the html with the bootstrap code we  */
+
   elMain.innerHTML += '<div style="width: 40%; margin: auto; padding:10px; margin-bottom: 20px;"><div class="progress" style="height: 20px;"><div id="loaderProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div></div></div>';
+  quotArr = quotArr.sort((a, b) => a[1].localeCompare(b[1]));
   displayPB();
 }
-/*401-1 the timer in the loading bar*/
 var timerCount = 0;
 
 function displayPB() {
@@ -73,18 +59,18 @@ function displayPB() {
     document.getElementById('loaderProgressBar').setAttribute('aria-valuenow', timerCount);
     document.getElementById('loaderProgressBar').style.width = timerCount + '%    ';
     timerCount++;
-    setTimeout(displayPB, 75);
+    setTimeout(displayPB, 50);
   } else {
     timerCount = 0;
     document.body.innerHTML = formLogin();
     return false;
   }
 }
-/*402.0 function formLogin lets us call the login screen*/
+
 function formLogin() {
   return '<form id="loginFrm" name="loginFrm" action="#" class="animated zoomIn"><div class="form-group"><label for="email">Email address:</label><input type="email" class="form-control" id="email" value="me@there.com"></div><div class="form-group"><label for="pwd">Password:</label><input type="password" class="form-control" id="pwd" value="dfdf"></div><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox">Remember me </label></div><button id="loginBtn" type="submit" class="btn btn-primary" onclick="validateLogin()">Submit</button></form>';
 }
-/*402.0 redirecting form when the login is correct or not*/
+
 function validateLogin() {
   var email = document.getElementById("email").value;
   var password = document.getElementById("pwd").value;
@@ -100,7 +86,7 @@ function validateLogin() {
 
 
 function applicationUserInterface() {
-let header = '<div class="container-fluid"><div class="row"><div class="col-12"><nav id="header" class="navbar navbar-dark fixed-top bg-dark"><a class="navbar-brand" data-dest="logoLink"  href="#">inside out</a></nav></div></div>';
+  let header = '<div class="container-fluid"><div class="row"><div class="col-12"><nav id="header" class="navbar navbar-dark fixed-top bg-dark"><a class="navbar-brand" data-dest="logoLink"  href="#">Jimmy De Jesus</a></nav></div></div>';
   let main = '<div class="row contStage"><div class="col-2">' + buildMenu() + '</div><div class="col-10">' + buildMain() + '</div></div>';
   let footer = '<div class="row"><div class="col-12"><nav id="footer" class="navbar fixed-bottom navbar-dark bg-dark"></nav></div></div></div>';
   document.body.style.backgroundColor = '#FFF';
@@ -113,7 +99,16 @@ let header = '<div class="container-fluid"><div class="row"><div class="col-12">
 }
 
 function buildMenu() {
-  return '<nav class="sidebar animated slideInLeft"><ul class="nav flex-column"> <li class="nav-item"> <a class="nav-link active" data-dest="link01" href="#">Active</a> </li><li class="nav-item"> <a class="nav-link" data-dest="link02"  href="#">Link</a> </li><li class="nav-item"> <a class="nav-link" data-dest="link03" href="#">Link</a> </li><li class="nav-item"> <a class="nav-link disabled" data-dest="link04" href="#">Disabled</a> </li></ul></nav>';
+
+  let sm = '<nav class="sidebar animated slideInLeft"><ul class="nav flex-column">';
+
+  //return '<li class="nav-item"> <a class="nav-link active" data-dest="link01" href="#">Active</a> </li>';
+
+  for (let i = 0; i < quotArr.length; i++) {
+         sm += '<li class="nav-item"><a class="nav-link active" data-dest="' + i + '" href="#">' + quotArr[i][1].split(",", 1) + '</a></li>';
+    }
+    sm += '</ul></nav>';
+    return sm;
 }
 
 function buildMain() {
@@ -122,6 +117,6 @@ function buildMain() {
 
 function linkClicked(obj) {
   console.log(obj.dataset.dest);
-  var str = '<h1 class="animated zoomIn">' + obj.dataset.dest + ' was clicked!</h1>';
-  document.getElementById("main").innerHTML = str.repeat(20);
+     var str = '<div class="infoDiv"><h1 class="animated zoomIn">' + quotArr[obj.dataset.dest][0] + '</h1><div class="animated slideInRight auth">- ' + quotArr[obj.dataset.dest][1] + '</div></div>';
+     document.getElementById("main").innerHTML = str;
 }

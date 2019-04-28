@@ -1,5 +1,3 @@
-/* CSS Document */
-
 nav {
    font-size: 14px;
 }
@@ -31,10 +29,12 @@ h1 {
    font-weight: bold;
    text-align: left;
    background-color: #CCC;
+   margin-bottom: 72px;
 }
 .sidebar ul {
    list-style: none;
    min-width: 160px;
+   max-width: 300px;
 }
 .sidebar ul li {
    border-bottom: thin solid #AAA;
@@ -52,7 +52,19 @@ h1 {
 }
 .placeholders {
    padding-bottom: 3rem;
-}
+ }
+
+ .auth {
+   width: 84%;
+   text-align: right;
+   font-size: .5em;
+   margin: auto;
+ }
+
+ .infoDiv {
+   margin-top: 20%;
+ }
+
 .placeholder img {
    padding-top: 1.5rem;
    padding-bottom: 1.5rem;
@@ -60,8 +72,6 @@ h1 {
 #applicationWrapper {
    padding-top: 150px;
 }
-/* end 403 */
-
 
 #loginFrm {
    max-width: 200px;
