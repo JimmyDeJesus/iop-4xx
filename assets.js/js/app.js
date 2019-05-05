@@ -4,7 +4,8 @@
 
 var appData = {
   title: 'My name is Jimmy De Jesus',
-  tagLine: '"There is only one happiness in this life, to love and be loved." George Sand.'
+  tagLine: '"There is only one happiness in this life, to love and be loved." George Sand.',
+  sideMenu: ['posts', 'pages']
 };
 
 window.addEventListener('load', initializeApplication);
@@ -59,7 +60,7 @@ function displayPB() {
     document.getElementById('loaderProgressBar').setAttribute('aria-valuenow', timerCount);
     document.getElementById('loaderProgressBar').style.width = timerCount + '%    ';
     timerCount++;
-    setTimeout(displayPB, 50);
+    setTimeout(displayPB, 15);
   } else {
     timerCount = 0;
     document.body.innerHTML = formLogin();
@@ -104,8 +105,8 @@ function buildMenu() {
 
   //return '<li class="nav-item"> <a class="nav-link active" data-dest="link01" href="#">Active</a> </li>';
 
-  for (let i = 0; i < quotArr.length; i++) {
-         sm += '<li class="nav-item"><a class="nav-link active" data-dest="' + i + '" href="#">' + quotArr[i][1].split(",", 1) + '</a></li>';
+  for (let i = 0; i < appData.sideMenu.length; i++) {
+         sm += '<li class="nav-item"><a class="nav-link active" data-dest="' + appData.sideMenu[i] + '" href="#">' + appData.sideMenu[i] + '</a></li>';
     }
     sm += '</ul></nav>';
     return sm;
@@ -116,7 +117,13 @@ function buildMain() {
 }
 
 function linkClicked(obj) {
-  console.log(obj.dataset.dest);
-     var str = '<div class="infoDiv"><h1 class="animated zoomIn">' + quotArr[obj.dataset.dest][0] + '</h1><div class="animated slideInRight auth">- ' + quotArr[obj.dataset.dest][1] + '</div></div>';
-     document.getElementById("main").innerHTML = str;
+	console.log(obj.dataset.dest);
+	if (appData.sideMenu.includes(obj.dataset.dest)) {
+		ajax.get('https://me.inside-out-project.com/wp-json/wp/v2/' + obj.dataset.dest, {
+			per_page: '50'
+		}, useData);
+	} else {
+		var str = '<div class="infoDiv"><h1 class="animated zoomIn">' + quotArr[obj.dataset.dest][0] + '</h1><div class="animated slideInRight auth">- ' + quotArr[obj.dataset.dest][1] + '</div></div>';
+		document.getElementById("main").innerHTML = str;
+	}
 }
